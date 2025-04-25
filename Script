@@ -1,140 +1,112 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
-
 local Window = Rayfield:CreateWindow({
     Name = "AOT freedom war script",
-    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    Icon = 0,
     LoadingTitle = "Loading ...",
     LoadingSubtitle = "by Xycon",
-    Theme = "Ocean", -- Check https://docs.sirius.menu/rayfield/configuration/themes
- 
+    Theme = "Ocean",
     DisableRayfieldPrompts = false,
-    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
- 
+    DisableBuildWarnings = false,
     ConfigurationSaving = {
        Enabled = true,
-       FolderName = nil, -- Create a custom folder for your hub/game
+       FolderName = nil,
        FileName = "Freedom"
     },
- 
     Discord = {
-       Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-       RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+       Enabled = true,
+       Invite = "https://discord.gg/jCvZZwy3Vz",
+       RememberJoins = true
     },
- 
-    KeySystem = false, -- Set this to true to use our key system
+    KeySystem = false,
     KeySettings = {
        Title = "Key system",
        Subtitle = "Key System",
-       Note = "Go to our discord to get the key!", -- Use this to tell the user how to get a key
-       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-       Key = {"ImTooLucky1311"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+       Note = "Go to our discord to get the key!",
+       FileName = "Key",
+       SaveKey = true,
+       GrabKeyFromSite = false,
+       Key = {""}
     }
- })
- 
- local Tab = Window:CreateTab("Player", 4483362458) -- Title, Image
+})
 
- local Button = Tab:CreateButton({
+local Tab = Window:CreateTab("Player", 4483362458)
+
+local Button = Tab:CreateButton({
     Name = "Infinite Gas",
     Callback = function()
-        -- Script to reset Gas to 2000 for LocalPlayer when it decreases
-
-local player = game.Players.LocalPlayer
-local targetGas = player.Character:WaitForChild("Humanoid"):WaitForChild("Gear"):WaitForChild("Gas")
-
--- Function to keep Gas value at 2000
-local function keepGasFull()
-    while true do
-        -- Wait a short time before checking again
-        wait(0.1)
-
-        -- Check if Gas is less than 2000 and reset if so
-        if targetGas.Value < 2000 then
-            targetGas.Value = 2000
+        local player = game.Players.LocalPlayer
+        local targetGas = player.Character:WaitForChild("Humanoid"):WaitForChild("Gear"):WaitForChild("Gas")
+        local function keepGasFull()
+            while true do
+                wait(0.1)
+                if targetGas.Value < 2000 then
+                    targetGas.Value = 2000
+                end
+            end
         end
-    end
-end
-
--- Start the function to maintain Gas at 2000
-keepGasFull()
-
+        keepGasFull()
     end,
- })
-
- local Button = Tab:CreateButton({
-   Name = "Infinite Blades (It will keep going if its 0)",
-   Callback = function()
--- Script to reset Blades to 8 for LocalPlayer when they decrease
-
-local player = game.Players.LocalPlayer
-local targetBlades = player.Character:WaitForChild("Humanoid"):WaitForChild("Gear"):WaitForChild("Blades")
-
--- Function to keep Blades at 8
-local function keepBladesFull()
-    while true do
-        -- Wait a short time before checking again
-        wait(0.1)
-
-        -- Check if Blades are less than 8 and reset if so
-        if targetBlades.Value < 8 then
-            targetBlades.Value = 8
-        end
-    end
-end
-
--- Start the function to maintain Blades at 8
-keepBladesFull()
-
-   end,
 })
 
+local Button = Tab:CreateButton({
+    Name = "Infinite Blades (It will keep going if its 0)",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local targetBlades = player.Character:WaitForChild("Humanoid"):WaitForChild("Gear"):WaitForChild("Blades")
+        local function keepBladesFull()
+            while true do
+                wait(0.1)
+                if targetBlades.Value < 8 then
+                    targetBlades.Value = 8
+                end
+            end
+        end
+        keepBladesFull()
+    end,
+})
 
 Tab:CreateButton({
-   Name = "Enable All Skills",
-   Callback = function()
-      local LocalPlayer = game:GetService("Players").LocalPlayer
-      local char = LocalPlayer.Character
-      if char then
-          local humanoid = char:FindFirstChild("Humanoid")
-          if humanoid then
-              local gear = humanoid:FindFirstChild("Gear")
-              if gear then
-                  for _, skill in pairs(gear.Skills:GetChildren()) do
-                      skill.Value = true
-                  end
-
-                  local gui = LocalPlayer:FindFirstChild("PlayerGui")
-                  if gui and gui:FindFirstChild("SkillsGui") then
-                      gui.SkillsGui.Enabled = true
-                      gui.SkillsGui.BladeThrow.Enabled = true
-                      gui.SkillsGui.Counter.Enabled = true
-                      gui.SkillsGui.Dodge.Enabled = true
-                      gui.SkillsGui.Impulse.Enabled = true
-                      gui.SkillsGui.SuperJump.Enabled = true
-                      gui.SkillsGui.HandCut.Enabled = true
-                      gui.SkillsGui.HandCutMk2.Enabled = true
-
-                      for _, v in pairs(gui.SkillsGui:GetChildren()) do
-                          if v:IsA("GuiObject") and v.Enabled ~= nil then
-                              if v.Enabled == true then
-                                  print(v.Name .. " is enabled.")
-                              else
-                                  print(v.Name .. " is not enabled.")
-                              end
-                          end
-                      end
-                  end
-              end
-          end
-      end
-   end,
+    Name = "Enable All Skills",
+    Callback = function()
+        local LocalPlayer = game:GetService("Players").LocalPlayer
+        local char = LocalPlayer.Character
+        if char then
+            local humanoid = char:FindFirstChild("Humanoid")
+            if humanoid then
+                local gear = humanoid:FindFirstChild("Gear")
+                if gear then
+                    for _, skill in pairs(gear.Skills:GetChildren()) do
+                        skill.Value = true
+                    end
+                    local gui = LocalPlayer:FindFirstChild("PlayerGui")
+                    if gui and gui:FindFirstChild("SkillsGui") then
+                        gui.SkillsGui.Enabled = true
+                        gui.SkillsGui.BladeThrow.Enabled = true
+                        gui.SkillsGui.Counter.Enabled = true
+                        gui.SkillsGui.Dodge.Enabled = true
+                        gui.SkillsGui.Impulse.Enabled = true
+                        gui.SkillsGui.SuperJump.Enabled = true
+                        gui.SkillsGui.HandCut.Enabled = true
+                        gui.SkillsGui.HandCutMk2.Enabled = true
+                        for _, v in pairs(gui.SkillsGui:GetChildren()) do
+                            if v:IsA("GuiObject") and v.Enabled ~= nil then
+                                if v.Enabled == true then
+                                    print(v.Name .. " is enabled.")
+                                else
+                                    print(v.Name .. " is not enabled.")
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end,
 })
-
+-- This God Mode Took Me A LONG Time To Get Working
 local godModeEnabled = false
-local godLoop = nil  -- Reference to the loop task
+local godLoop = nil
 
 local Toggle = Tab:CreateToggle({
     Name = "God Mode Toggle",
@@ -144,7 +116,7 @@ local Toggle = Tab:CreateToggle({
         godModeEnabled = Value
 
         if godModeEnabled then
-            -- Start loop
+            -- Start the loop
             godLoop = task.spawn(function()
                 while godModeEnabled do
                     task.wait(1)
@@ -160,19 +132,25 @@ local Toggle = Tab:CreateToggle({
                     end
                 end
             end)
+        else
+            -- Just setting god.Value to false when turned off
+            local player = game.Players.LocalPlayer
+            if player and player.Character then
+                local humanoid = player.Character:FindFirstChild("Humanoid")
+                if humanoid then
+                    local god = humanoid:FindFirstChild("God")
+                    if god then
+                        god.Value = false
+                    end
+                end
+            end
         end
-        -- When toggle is off, the loop naturally stops on next cycle
     end,
 })
 
 
+local Tab = Window:CreateTab("Horse (BETA)", 4483362458)
 
- local Tab = Window:CreateTab("Horse (BETA)", 4483362458) -- Title, Image
-
-
-
-
--- Horse logic
 local horseFolder = workspace:FindFirstChild("OnGameHorses")
 local validHorseNames = {
    "HorseCarriage",
@@ -192,7 +170,6 @@ local function setMaxSpeedForAllValidHorses(speed)
             else
                maxSpeed = horse:FindFirstChild("Configuration") and horse.Configuration:FindFirstChild("MaxSpeed")
             end
-
             if maxSpeed and typeof(maxSpeed.Value) == "number" then
                maxSpeed.Value = speed
             end
@@ -219,7 +196,6 @@ local Toggle = Tab:CreateToggle({
     Flag = "HorseStaminaToggle",
     Callback = function(Value)
         if Value then
-            -- Start stamina lock loop
             task.spawn(function()
                 while true do
                     local horseFolder = workspace:FindFirstChild("OnGameHorses")
@@ -229,11 +205,9 @@ local Toggle = Tab:CreateToggle({
                         "BlackHorse",
                         "WhiteHorse"
                     }
-
                     for _, name in ipairs(validHorseNames) do
                         local horse = horseFolder and horseFolder:FindFirstChild(name)
                         local config
-
                         if horse then
                             if name == "HorseCarriage" then
                                 config = horse:FindFirstChild("Carriage") and horse.Carriage:FindFirstChild("Configuration")
@@ -241,37 +215,27 @@ local Toggle = Tab:CreateToggle({
                                 config = horse:FindFirstChild("Configuration")
                             end
                         end
-
                         local stamina = config and config:FindFirstChild("Stamina")
-
                         if stamina then
-                            -- Set stamina to locked value
                             stamina.Value = 450.0158084053546
-
-                            -- Lock it in with a loop
                             while stamina and stamina.Parent and stamina.Value < 450.0158084053546 do
                                 stamina.Value = 450.0158084053546
                                 task.wait(0.2)
                             end
                         end
                     end
-                    task.wait(1) -- Small delay before re-checking
+                    task.wait(1)
                 end
             end)
         else
-            -- Stop the stamina locking loop
             _G.StaminaLooping = false
         end
     end,
 })
 
+local Tab = Window:CreateTab("Titans", 4483362458)
 
-
-
- local Tab = Window:CreateTab("Titans", 4483362458) -- Title, Image
-
-
-local targetSize = 20 -- default starting size
+local targetSize = 20
 
 Tab:CreateSlider({
     Name = "Nape Size (XYZ)",
@@ -287,26 +251,21 @@ Tab:CreateSlider({
 task.spawn(function()
     while true do
         local titanFolder = workspace:FindFirstChild("OnGameTitans")
-
         if titanFolder then
             for _, titan in pairs(titanFolder:GetChildren()) do
                 if string.find(titan.Name, "Titan") then
                     local nape = titan:FindFirstChild("Nape")
                     if nape and nape:IsA("BasePart") then
                         local newSize = Vector3.new(targetSize, targetSize, targetSize)
-
                         if (nape.Size - newSize).Magnitude > 0.1 then
                             nape.Size = newSize
                         end
-
                         if nape.Material ~= Enum.Material.ForceField then
                             nape.Material = Enum.Material.ForceField
                         end
-
                         if nape.Transparency ~= 0 then
                             nape.Transparency = 0
                         end
-
                         if not nape:FindFirstChild("NapeHighlight") then
                             local highlight = Instance.new("Highlight")
                             highlight.Name = "NapeHighlight"
@@ -319,12 +278,11 @@ task.spawn(function()
                 end
             end
         end
-
         task.wait(0.1)
     end
 end)
 
- local Tab = Window:CreateTab("Warriors", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Warriors", 4483362458)
 
 Tab:CreateButton({
     Name = "Delete Titan Cooldown",
@@ -338,7 +296,6 @@ Tab:CreateButton({
             "CartTitan",
             "AttackTitan"
         }
-
         local localScriptNames = {
             FemaleTitan = "FELocal",
             ArmoredTitan = "ARLocal",
@@ -348,18 +305,14 @@ Tab:CreateButton({
             CartTitan = "CALocal",
             AttackTitan = "ATLocal"
         }
-
         for _, titanName in ipairs(titanNames) do
             local titanModel = workspace:FindFirstChild(titanName)
-
             if titanModel then
                 local localScriptName = localScriptNames[titanName]
                 local localScript = titanModel:FindFirstChild(localScriptName)
-
                 if localScript then
                     local stats = localScript:FindFirstChild("Stats")
                     local time = stats and stats:FindFirstChild("Time")
-
                     if time then
                         time:Destroy()
                     end
