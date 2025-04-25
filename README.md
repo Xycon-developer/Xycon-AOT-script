@@ -5,4 +5,4 @@ A powerful script hub for "Attack on Titan: Freedom War" – by Xycon.
 Execute the following code in your executor:
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Xycon-developer/Xycon-AOT-script/main/main.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Xycon-developer/Xycon-AOT-script/main/script.lua"))()
