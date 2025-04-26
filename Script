@@ -782,7 +782,7 @@ local window =
         },
         Discord = {
             Enabled = true,
-            Invite = "https://discord.gg/jCvZZwy3Vz",
+            Invite = "jCvZZwy3Vz",
             RememberJoins = true
         }
     }
